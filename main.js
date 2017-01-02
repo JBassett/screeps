@@ -42,7 +42,7 @@ var createCreeps = function(spawn){
                 console.log(spawn.name, ': Creating ', role.ROLE, ' named ', creepName);
                 cleanMemory();
                 displayCounts();
-            }else if(Game.time % 20 == 0) {
+            }else if(Game.time % 20 == 0 && creepName == ERR_NOT_ENOUGH_ENERGY) {
                 console.log(spawn.name, ': Need more energy to create a ', role.ROLE);
                 displayCounts();
             }
