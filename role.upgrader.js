@@ -4,7 +4,7 @@ var roleHauler = require('role.hauler');
 module.exports = {
     ROLE:'upgrader',
     BODY_BASE: [CARRY, MOVE, WORK],
-    BODY_ADD: [WORK],
+    BODY_ADD: [WORK, MOVE],
     current: function(spawner){
         return _.filter(Game.creeps, (creep) => spawner.room.name == creep.room.name && creep.memory.role == this.ROLE);
     },
