@@ -3,7 +3,7 @@ var roleRepairer = require('role.repairer');
 module.exports = {
     ROLE:'wallRepairer',
     BODY_BASE: [CARRY, MOVE, WORK],
-    BODY_ADD: [WORK],
+    BODY_ADD: [WORK, MOVE],
     canCreate: function(spawner){
         return spawner.canCreateCreep(this.BODY) == OK;
     },
