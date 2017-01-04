@@ -23,6 +23,11 @@ module.exports = {
         return spawner.createCreep(body, undefined, {role: this.ROLE});
     },
     run: function (creep){
+        if(roleHarvester.shouldCreate(creep)){
+            roleHarvester.run(creep);
+            creep.say('Harvest!')
+            return
+        }
         // if(creep.room.controller.ticksToDowngrade > 3000){
         //     roleHarvester.run(creep);
         //     return;

@@ -42,7 +42,6 @@ module.exports = {
                 return;
             }
             creep.memory.target = loc.id;
-            console.log(JSON.stringify(Game.getObjectById(creep.memory.target)));
         }
         let target = Game.getObjectById(creep.memory.target);
         if(!target.pos.isEqualTo(creep.pos)){

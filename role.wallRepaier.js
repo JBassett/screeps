@@ -1,4 +1,5 @@
 var roleRepairer = require('role.repairer');
+var roleHarvester = require('role.harvester');
 
 module.exports = {
     ROLE:'wallRepairer',
@@ -11,7 +12,7 @@ module.exports = {
         return _.filter(Game.creeps, (creep) => spawner.room.name == creep.room.name && creep.memory.role == this.ROLE);
     },
     shouldCreate: function(spawner){
-        return this.current(spawner).length < 5;//spawner.memory.minNumber[this.ROLE];
+        return this.current(spawner).length < 3;//spawner.memory.minNumber[this.ROLE];
     },
     create: function(spawner){
         let body = this.BODY_BASE.slice();
@@ -21,6 +22,11 @@ module.exports = {
         return spawner.createCreep(body, undefined, {role: this.ROLE});
     },
     run: function (creep){
+        if(roleHarvester.shouldCreate(creep)){
+            roleHarvester.run(creep);
+            creep.say('Harvest!')
+            return;
+        }
         var walls = creep.room.find(FIND_STRUCTURES, {filter: (s) => s.hits < s.hitsMax && s.structureType == STRUCTURE_WALL});
         if(walls.length == 0){
             roleRepairer.run(creep);

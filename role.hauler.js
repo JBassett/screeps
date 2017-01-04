@@ -57,9 +57,11 @@ module.exports = {
                     return;
                 }
                 creep.memory.target = loc.id;
-                console.log(JSON.stringify(Game.getObjectById(creep.memory.target)));
+                console.log(creep.name, ' has found a Target.');
             }
             let cont = Game.getObjectById(creep.memory.target);
+            if(cont.store[RESOURCE_ENERGY] == 0)
+                cont = creep.pos.findClosestByPath(FIND_STRUCTURES, {filter: function (s){return s.structureType == STRUCTURE_CONTAINER && s.store[RESOURCE_ENERGY] > 0}});
             if(creep.withdraw(cont, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(cont);
             }
