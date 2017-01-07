@@ -63,7 +63,18 @@ module.exports.loop = function () {
         if(role != null){
             role.run(creep);
         }else {
-            console.log('Unknown role type: ', creep.memory.role);
+            console.log(creep.name, ': Unknown role type: ', creep.memory.role);
         }
     }
+    
+    _.forEach(Game.structures, function(s){
+        if(s.structureType === STRUCTURE_TOWER){
+            let target = s.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+            if( target != null){
+                if(s.attack(target) !== OK){
+                   s.say("ERROR");
+                }
+            }
+        }
+    });
 }
