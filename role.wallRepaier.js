@@ -12,7 +12,7 @@ module.exports = {
         return _.filter(Game.creeps, (creep) => spawner.room.name == creep.room.name && creep.memory.role == this.ROLE);
     },
     shouldCreate: function(spawner){
-        return this.current(spawner).length < 3;//spawner.memory.minNumber[this.ROLE];
+        return this.current(spawner).length < 1;//spawner.memory.minNumber[this.ROLE];
     },
     create: function(spawner){
         let body = this.BODY_BASE.slice();

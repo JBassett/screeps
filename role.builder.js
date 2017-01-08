@@ -11,7 +11,7 @@ module.exports = {
         return _.filter(Game.creeps, (creep) => spawner.room.name == creep.room.name && creep.memory.role == this.ROLE);
     },
     shouldCreate: function(spawner){
-        return this.current(spawner).length < 3;// spawner.memory.minNumber[this.ROLE];
+        return this.current(spawner).length < 1;// spawner.memory.minNumber[this.ROLE];
     },
     create: function(spawner){
         let body = this.BODY_BASE.slice();
@@ -26,15 +26,11 @@ module.exports = {
             return;
         }
         if(creep.carry.energy == 0) {
-            // find closest spawn, extension or tower which is not full
             let struct = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
-                // the second argument for findClosestByPath is an object which takes
-                // a property called filter which can be a function
-                // we use the arrow operator to define it
                 filter: (s) => (s.structureType == STRUCTURE_SPAWN
                              || s.structureType == STRUCTURE_EXTENSION
-                             || s.structureType == STRUCTURE_TOWER)
-                             && s.energy > 1
+                             || s.structureType == STRUCTURE_CONTAINER)
+                             && s.energy > 10
             });
             if(creep.withdraw(struct, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(struct);
