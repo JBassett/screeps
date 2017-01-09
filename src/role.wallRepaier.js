@@ -12,7 +12,14 @@ module.exports = {
         return _.filter(Game.creeps, (creep) => spawner.room.name == creep.room.name && creep.memory.role == this.ROLE);
     },
     shouldCreate: function(spawner) {
-        return this.current(spawner).length < 1; //spawner.memory.minNumber[this.ROLE];
+        let walls = spawner.room.find(FIND_STRUCTURES, {
+            filter: (s) => (s.structureType == STRUCTURE_WALL ||
+                    s.structureType == STRUCTURE_RAMPART) &&
+                s.hits < s.hitsMax
+        });
+        return walls.length < 5 ?
+            this.current(spawner).length < 1 :
+            this.current(spawner).length < walls.length / 10;
     },
     create: function(spawner) {
         let body = this.BODY_BASE.slice();
