@@ -37,7 +37,7 @@ module.exports = {
             }
         }
         else {
-            var plan = creep.pos.findClosestByPath(FIND_MY_CONSTRUCTION_SITES);//_.sort(creep.room.find(FIND_MY_CONSTRUCTION_SITES), (c)=> c.progress / c.progressTotal)[0];
+            var plan = _.sortBy(creep.room.find(FIND_MY_CONSTRUCTION_SITES), (c)=> -c.progress / c.progressTotal)[0];
             //console.log(plan);
             if(creep.build(plan) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(plan);
