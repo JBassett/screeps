@@ -33,7 +33,7 @@ module.exports = {
                 // we use the arrow operator to define it
                 filter: (s) => (s.structureType == STRUCTURE_SPAWN
                              || s.structureType == STRUCTURE_EXTENSION
-                             || s.structureType == STRUCTURE_TOWER)
+                             || s.structureType == STRUCTURE_CONTAINER)
                              && s.energy > 1
             });
             if(creep.withdraw(struct, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
@@ -41,7 +41,11 @@ module.exports = {
             }
         }
         else {
-            var plan = creep.pos.findClosestByPath(FIND_STRUCTURES, { filter: (s) => s.hits < s.hitsMax && s.structureType != STRUCTURE_WALL });
+            var plan = creep.pos.findClosestByPath(FIND_STRUCTURES, { 
+                filter: (s) => s.hits < s.hitsMax
+                            && s.structureType != STRUCTURE_WALL 
+                            && s.structureType != STRUCTURE_RAMPART
+            });
             if(creep.repair(plan) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(plan);
             }

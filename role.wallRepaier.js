@@ -27,7 +27,11 @@ module.exports = {
             creep.say('Harvest!')
             return;
         }
-        var walls = creep.room.find(FIND_STRUCTURES, {filter: (s) => s.hits < s.hitsMax && s.structureType == STRUCTURE_WALL});
+        var walls = creep.room.find(FIND_STRUCTURES, {
+            filter: (s) => (s.structureType == STRUCTURE_WALL 
+                        || s.structureType == STRUCTURE_RAMPART)
+                        && s.hits < s.hitsMax 
+        });
         if(walls.length == 0){
             roleRepairer.run(creep);
             return;
@@ -40,7 +44,7 @@ module.exports = {
                 // we use the arrow operator to define it
                 filter: (s) => (s.structureType == STRUCTURE_SPAWN
                              || s.structureType == STRUCTURE_EXTENSION
-                             || s.structureType == STRUCTURE_TOWER)
+                             || s.structureType == STRUCTURE_CONTAINER)
                              && s.energy > 1
             });
             if(creep.withdraw(struct, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
@@ -49,7 +53,12 @@ module.exports = {
         }
         else {
             let maxHitsToRepair = _.sortBy(walls, 'hits')[0].hits + 500;
-            var plan = creep.pos.findClosestByPath(FIND_STRUCTURES, { filter: (s) => s.structureType == STRUCTURE_WALL && s.hits < maxHitsToRepair });
+            var plan = creep.pos.findClosestByPath(FIND_STRUCTURES, { 
+                filter: (s) => (s.structureType == STRUCTURE_WALL 
+                            || s.structureType == STRUCTURE_RAMPART)
+                            && s.hits < maxHitsToRepair 
+                
+            });
             if(creep.repair(plan) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(plan);
             }
