@@ -19,7 +19,7 @@ module.exports = {
         });
         return walls.length < 5 ?
             this.current(spawner).length < 1 :
-            this.current(spawner).length < walls.length / 10;
+            this.current(spawner).length < walls.length / 20;
     },
     create: function(spawner) {
         let body = this.BODY_BASE.slice();
