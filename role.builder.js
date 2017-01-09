@@ -1,4 +1,5 @@
 var roleUpgrader = require('role.upgrader');
+var roleHauler = require('role.hauler');
 
 module.exports = {
     ROLE:'builder',
@@ -11,7 +12,8 @@ module.exports = {
         return _.filter(Game.creeps, (creep) => spawner.room.name == creep.room.name && creep.memory.role == this.ROLE);
     },
     shouldCreate: function(spawner){
-        return this.current(spawner).length < 1;// spawner.memory.minNumber[this.ROLE];
+        return (roleHauler.current(spawner).length < 2 * roleHauler.HAULERS_PER_MINER && this.current(spawner).length < 1)
+              || (roleHauler.current(spawner).length >= 2 * roleHauler.HAULERS_PER_MINER && this.current(spawner).length < 3);
     },
     create: function(spawner){
         let body = this.BODY_BASE.slice();
