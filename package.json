@@ -1,0 +1,7 @@
+{
+  "name": "jbassett-screeps",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-copy": "^1.0.0"
+  }
+}
