@@ -41,7 +41,8 @@ module.exports = {
                     s.structureType == STRUCTURE_RAMPART) &&
                 s.hits < s.hitsMax
         });
-        if (walls.length == 0) {
+        if (walls.length == 0
+            ||creep.room.energyCapacity / creep.room.energyCapacityAvailable < .25) {
             roleRepairer.run(creep);
             return;
         }

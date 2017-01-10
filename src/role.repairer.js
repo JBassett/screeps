@@ -25,7 +25,8 @@ module.exports = {
     run: function(creep) {
         if (creep.room.find(FIND_STRUCTURES, {
                 filter: (s) => s.hits < s.hitsMax && s.structureType != STRUCTURE_WALL
-            }).length == 0) {
+            }).length == 0 ||
+            creep.room.energyCapacity / creep.room.energyCapacityAvailable < .25) {
             roleBuilder.run(creep);
             return;
         }

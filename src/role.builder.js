@@ -1,5 +1,6 @@
 var roleUpgrader = require('role.upgrader');
 var roleHauler = require('role.hauler');
+var roleHarvester = require('role.harvester');
 
 module.exports = {
     ROLE: 'builder',
@@ -25,6 +26,11 @@ module.exports = {
         });
     },
     run: function(creep) {
+        // if we have less than 50% energy available should we be using it?
+        if (creep.room.energyCapacity / creep.room.energyCapacityAvailable < .25) {
+            roleHarvester.run(creep);
+            return;
+        }
         if (creep.room.find(FIND_MY_CONSTRUCTION_SITES).length == 0) {
             roleUpgrader.run(creep);
             return;
